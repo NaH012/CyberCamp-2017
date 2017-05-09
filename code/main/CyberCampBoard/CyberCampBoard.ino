@@ -27,6 +27,8 @@ const char* fingerprint = "D3 1B F4 69 70 D3 75 6E 01 EF C7 C5 E4 96 A5 DC C3 91
 String ssid[] = {"Cybercamp2017"};
 String password[] = {"samurai7"};
 
+// This is the username that showes up on mikej.tech/cybergame/
+// it is limited to 3 characters long
 String userName = "MDJ";
 
 const char* ssid2;
