@@ -16,7 +16,6 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 #include <EEPROM.h>
-#include "Badge.h"
 #include "pitches.h"
 
 // Use web browser to view and copy
