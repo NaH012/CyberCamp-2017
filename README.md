@@ -2,7 +2,7 @@
 This is the code as well as the schematic for the electronics portion of CyberCamp 2017
 
 # Set Up #
-This circuit is powered by a Wemos D1 Mini, a Maxium7219, and an anode 8x8 LED matrix
+This circuit is powered by a Wemos D1 Mini, a Maxium7219, an anode 8x8 LED matrix, a button, and a buzzer
 ![The Circuit](/Cyber-Camp.jpg?raw=true)
 
 ## Programming the Board ##
@@ -30,6 +30,9 @@ Make sure the chip is selected, you can do this by going to tools > board > Wemo
 # Contact #
 Weston Shakespear: westonshakespear@gmail.com
 Mike Julander: 1110mdj@gmail.com
+
+# Second Screen #
+![The Second Circuit](/Cyber-Camp-Dual-Screen.jpg?raw=true)
 
 
 [arduino-download]: https://www.arduino.cc/en/Main/Software "Download the Arduino IDE"
