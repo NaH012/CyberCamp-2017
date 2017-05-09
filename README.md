@@ -18,7 +18,7 @@ This circuit is powered by a Wemos D1 Mini, a Maxium7219, and an anode 8x8 LED m
 3. Go to tools -> boards: -> board manager, find the esp8266 board, click on it and click install
 
 
-### Adding the MAX72xxPanel Library to the Arduino IDE ###
+### Add the files to control the LED matrix ###
 1. You will need to download [Max72xxPanel][max-download] and [Adafruit_GFX][gfx-download] as a zip file
 2. Then in the Arduino IDE go to Sketch > Include Library > Add .zip library
 3. Select the zip files you just downloded
