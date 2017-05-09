@@ -28,12 +28,10 @@ This circuit is powered by a Wemos D1 Mini, a Maxium7219, and an anode 8x8 LED m
 Make sure the chip is selected, you can do this by going to tools > board > Wemos D1 R2 & mini
 
 # Contact #
-[Weston Shakespear][westonshakespear]
-[Mike Julander][1110mdj]
+Weston Shakespear: westonshakespear@gmail.com
+Mike Julander: 1110mdj@gmail.com
 
 
-[westonshakespear]: westonshakespear@gmail.com
-[1110mdj]: 1110mdj@gmail.com
 [arduino-download]: https://www.arduino.cc/en/Main/Software "Download the Arduino IDE"
 [max-download]: https://github.com/markruys/arduino-Max72xxPanel/archive/master.zip "Download Max72xxPanel library"
 [gfx-download]: https://github.com/adafruit/Adafruit-GFX-Library "Download Adafruit GFX Graphics Library"
