@@ -22,7 +22,9 @@ This circuit is powered by a Wemos D1 Mini, a Maxium7219, and an anode 8x8 LED m
 ### Uploading to the board ###
 Make sure the chip is selected, you can do this by going to tools > board > Wemos D1 R2 & mini
 
-
+# Contact #
+Weston Shakespear: westonshakespear@gmail.com
+Mike Julander: 1110mdj@gmail.com
 
 
 
