@@ -27,6 +27,8 @@ const char* fingerprint = "D3 1B F4 69 70 D3 75 6E 01 EF C7 C5 E4 96 A5 DC C3 91
 String ssid[] = {"Cybercamp2017"};
 String password[] = {"samurai7"};
 
+String userName = "MDJ";
+
 const char* ssid2;
 const char* password2;
 int conn;
@@ -283,7 +285,7 @@ int game(WiFiClientSecure client, int option) {
   Serial.print("SCORE: ");
   Serial.print(score);
   Serial.println("\n");
-  uploadScores(client, "WRS", score);
+  uploadScores(client, userName, score);
   //clean up
   noTone(pinBuzzer);
   lives = 4;
