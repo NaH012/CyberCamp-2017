@@ -30,6 +30,9 @@ String password[] = {"samurai7"};
 // This is the username that showes up on mikej.tech/cybergame/
 // it is limited to 3 characters long
 String userName = "MDJ";
+// Change this vairable for how many screens you are using
+//etc for one screen, 1. two screens, 2
+int screenCount = 1;
 
 const char* ssid2;
 const char* password2;
@@ -67,7 +70,7 @@ const int httpsPort = 443;
 int pinButton = 15;
 int pinBuzzer = 4;
 int pinCS = 5; // Attach CS to this pin, DIN to MOSI and CLK to SCK (cf http://arduino.cc/en/Reference/SPI )
-int numberOfHorizontalDisplays = 1;
+int numberOfHorizontalDisplays = screenCount;
 int numberOfVerticalDisplays = 1;
 int spacer = 2;
 int width = 5 + spacer; // The font width is 5 pixels
@@ -79,6 +82,9 @@ int option = 0; //This tells the program what to load, the text scrolling (0) or
 void setup() {
   matrix.setIntensity(0); // Use a value between 0 and 15 for brightness
   matrix.setRotation(0, 2);
+  if (screenCount == 2) {
+    matrix.setRotation(1, 2);
+  }
   EEPROM.begin(512);
   Serial.begin(115200);
   pinMode(pinButton, INPUT);
@@ -96,8 +102,12 @@ void loop() {
   Serial.println(host);
   if (!client.connect(host, httpsPort)) {
     Serial.println("connection failed");
-    String text = readText(0);
-    displayLine(text, 0);
+    if (option == 0) {
+      String text = readText(0);
+      displayLine(text, 0);
+    } else {
+      option = game(client, option);
+    }
   } else {
     if (client.verify(fingerprint, host)) {
       Serial.println("certificate matches");
@@ -107,9 +117,9 @@ void loop() {
   }
 
 
-  if(option == 0){
+  if (option == 0) {
     option = getMessage(client, option);
-  }else{
+  } else {
     option = game(client, option);
   }
 
@@ -182,10 +192,10 @@ int displayLine(String line, int option) {
         if (digitalRead(pinButton) && buttonTime <= startTime && pressed) {
           option = 1;
           pressed = false;
-        }else if(digitalRead(pinButton) && buttonTime <= startTime && !pressed){
+        } else if (digitalRead(pinButton) && buttonTime <= startTime && !pressed) {
           pressed = true;
           buttonTime = startTime + 1000;
-        }else if(!digitalRead(pinButton) && buttonTime <= startTime && pressed){
+        } else if (!digitalRead(pinButton) && buttonTime <= startTime && pressed) {
           pressed = false;
         }
 
@@ -249,8 +259,8 @@ int game(WiFiClientSecure client, int option) {
     // to calculate the note duration, take one second
     // divided by the note type.
     //e.g. quarter note = 1000 / buzzerPin, eighth note = 1000/8, etc.
-    int noteDuration = 1000/noteDurationsPacman[thisNote];
-    tone(pinBuzzer, melodyPacman[thisNote],noteDuration);
+    int noteDuration = 1000 / noteDurationsPacman[thisNote];
+    tone(pinBuzzer, melodyPacman[thisNote], noteDuration);
     // to distinguish the notes, set a minimum time between them.
     // the note's duration + 30% seems to work well:
     int pauseBetweenNotes = noteDuration * 1.30;
@@ -260,7 +270,7 @@ int game(WiFiClientSecure client, int option) {
   }
 
   while (lives > 0) {
-  //  Serial.println("Currently in game loop");
+    //  Serial.println("Currently in game loop");
     noTone(pinBuzzer);
     render();
     //draw everything to screen
@@ -277,7 +287,7 @@ int game(WiFiClientSecure client, int option) {
       difficulty = 1;
     }
 
-    matrix.setRotation(difficulty);
+    matrix.setRotation(0, difficulty + 2);
 
     delay(100 - (difficulty * 15));
     Serial.println(score);
@@ -293,14 +303,14 @@ int game(WiFiClientSecure client, int option) {
   lives = 4;
   score = 0;
   difficulty = 0;
-  matrix.setRotation(0);
+  matrix.setRotation(0, 2);
   //score a score of 112345 to win a special prize
   return 0; //used to switch back to scrolling the text by sending the value of 0
 }
 
 //game functions
 void render() {
-//  Serial.println("Render Board");
+  //  Serial.println("Render Board");
 
   //render obstacles
   if ((gameTick % (4 - (difficulty / 2))) == 0) {
@@ -311,43 +321,43 @@ void render() {
   }
 
   //shift all pixels down
-  for(int x = 7;x >= 0;x--) {
-    for(int y = 7;y > 0;y--) {
+  for (int x = 7; x >= 0; x--) {
+    for (int y = 7; y > 0; y--) {
       board[x][y] = board[x][y - 1];
     }
   }
 
   //clear top row
-  for(int c = 0;c < 8;c++) {
+  for (int c = 0; c < 8; c++) {
     board[c][0] = 0;
   }
 
   //draw board
-  for(int x = 0;x < 8;x++) {
-    for(int y = 0;y < 8;y++) {
+  for (int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
       if (board[x][y] == 1) {
-      //  Serial.print("1 ");
+        //  Serial.print("1 ");
         matrix.drawPixel(x, y, HIGH);
       } else {
-      //  Serial.print("0 ");
+        //  Serial.print("0 ");
         matrix.drawPixel(x, y, LOW);
       }
     }
-  //  Serial.print("\n");
+    //  Serial.print("\n");
   }
 
   //update lives
   //erase life area
-  for(int a = 0;a < 4;a++) {
+  for (int a = 0; a < 4; a++) {
     matrix.drawPixel((a + 2), 0, LOW);
   }
-  for(int b = 0;b < lives;b++) {
+  for (int b = 0; b < lives; b++) {
     matrix.drawPixel((b + 2), 0, HIGH);
   }
 
   //render player
   matrix.drawPixel(playerX, 7, HIGH);
-  //the answer for the cyber challenge is(do not enter paranthesis): StarWars 
+  //the answer for the cyber challenge is(do not enter paranthesis): StarWars
   //move player
   if (digitalRead(pinButton) == HIGH) {
     movCounter++;
@@ -371,7 +381,7 @@ void render() {
     } else {
       score += difficulty;
     }
-    tone(pinBuzzer, NOTE_B5, (1000/8));
+    tone(pinBuzzer, NOTE_B5, (1000 / 8));
     moveTime = 0;
     left = false;
   }
@@ -382,14 +392,14 @@ void render() {
     } else {
       score += difficulty;
     }
-    tone(pinBuzzer, NOTE_B5, (1000/8));
+    tone(pinBuzzer, NOTE_B5, (1000 / 8));
     moveTime = 0;
     left = true;
   }
 
-  if(board[playerX][6] == 1) {
+  if (board[playerX][6] == 1) {
     lives--;
-    tone(pinBuzzer, NOTE_B2, (1000/8));
+    tone(pinBuzzer, NOTE_B2, (1000 / 8));
   }
 }
 
@@ -411,7 +421,7 @@ void resetEverything() {
 
   EEPROM.commit();
 
-  while(true) {
+  while (true) {
     matrix.fillScreen(HIGH);
     matrix.write();
     delay(100);
@@ -442,7 +452,7 @@ void wifisetup() {
         while (WiFi.status() != WL_CONNECTED && timeout <= 17) {
           delay(500);
           timeout += 1;
-          if(digitalRead(pinButton) == HIGH) {
+          if (digitalRead(pinButton) == HIGH) {
             counter++;
           }
           if (counter == 4) {
