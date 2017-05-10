@@ -32,7 +32,7 @@ Weston Shakespear: westonshakespear@gmail.com
 Mike Julander: 1110mdj@gmail.com
 
 # Second Screen #
-![The Second Circuit](/Cyber-Camp-Dual-Screen.jpg?raw=true)
+![The Second Circuit](/Cyber-Camp-Dual-Matrix.jpg?raw=true)
 
 
 [arduino-download]: https://www.arduino.cc/en/Main/Software "Download the Arduino IDE"
