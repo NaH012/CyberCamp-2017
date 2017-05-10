@@ -357,7 +357,7 @@ void render() {
 
   //render player
   matrix.drawPixel(playerX, 7, HIGH);
-  //the answer for the cyber challenge is(do not enter paranthesis): StarWars
+  //the answer for the cyber challenge is(do not enter paranthesis): ArduinoRocks
   //move player
   if (digitalRead(pinButton) == HIGH) {
     movCounter++;
