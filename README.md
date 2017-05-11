@@ -27,6 +27,9 @@ This circuit is powered by a Wemos D1 Mini, a Maxium7219, an anode 8x8 LED matri
 ### Uploading to the board ###
 Make sure the chip is selected, you can do this by going to tools > board > Wemos D1 R2 & mini
 
+### Mac Not Recognizing the Board ###
+Got to [sparkfun][ftdi] and follow the instructions to install the drivers
+
 # Contact #
 Weston Shakespear: westonshakespear@gmail.com
 Mike Julander: 1110mdj@gmail.com
@@ -34,7 +37,7 @@ Mike Julander: 1110mdj@gmail.com
 # Second Screen #
 ![The Second Circuit](/Cyber-Camp-Dual-Matrix.jpg?raw=true)
 
-
+[ftdi]: https://learn.sparkfun.com/tutorials/how-to-install-ftdi-drivers/mac
 [arduino-download]: https://www.arduino.cc/en/Main/Software "Download the Arduino IDE"
 [max-download]: https://github.com/markruys/arduino-Max72xxPanel/archive/master.zip "Download Max72xxPanel library"
 [gfx-download]: https://github.com/adafruit/Adafruit-GFX-Library "Download Adafruit GFX Graphics Library"
